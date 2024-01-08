@@ -1,7 +1,6 @@
 import React from "react";
 
-
-export function Card(username)
+export function Card(username, btnText)
 {
     return (
         <><div>Card</div>
@@ -16,7 +15,7 @@ export function Card(username)
     <p className="mt-2 text-sm text-gray-300"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
       debitis?
     </p>
-    <button className="mt-2 inline-flex cursor-pointer items-center text-sm font-semibold text-white">
+    <button className="mt-2 inline-flex cursor-pointer items-center text-sm font-semibold text-black ">
       View Profile →
     </button>
   </div>
