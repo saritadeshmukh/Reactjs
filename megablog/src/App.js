@@ -1,16 +1,42 @@
-
+import React, {useState,useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import authservice from './appwrite/auth.js';
+import {Header, Footer} from './components';
+import {login,logout} from './store/authSlice';
+import { Outlet } from 'react-router-dom'
 import './App.css';
 
 function App() {
+  //to ask data from database,create loading state
 
-  console.log(process.env.REACT_APP_APPWRITE_URL = "test environment")
+  const [loading,setLoading] = useState(true);
 
-  return (
+  const[dispatch] = useDispatch();
+  
+  useEffect(()=>{
+    authservice.getCurrentUser()
+    .then((userData)=>{
+      if(userData){
+        dispatch(login(userData))
+      }
+      else{
+        dispatch(logout())
+      }
+    })
+    .finally(()=>setLoading(false))
+  })
 
-    
-    <><h1>A blog in appwrite</h1>
-    </>
-  );
+  return !loading ?(
+    <div className='min-h-screen flex flex-wrap content-between bg-red-200'>
+      <div className='w-full block'>
+      <Header />
+      <main>
+        TODOS: <Outlet />
+      </main>
+      <Footer />
+      </div>
+   </div>
+    ):null ;
 }
 
 export default App;
